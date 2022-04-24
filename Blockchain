@@ -1,0 +1,21 @@
+import 'dart:io';
+
+void checkConnection() async {
+    try {
+      final result = await InternetAddress.lookup('localhost');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        print('connected');
+
+        _networkConnected.value = true;
+      }
+      final result2 = await InternetAddress.lookup('yourBackend.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        print('connected');
+
+        _networkConnected.value = true;
+      }
+    } on SocketException catch (_) {
+      print('not connected');
+      _networkConnected.value = false;
+    }
+  }
